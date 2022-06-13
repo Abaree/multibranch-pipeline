@@ -3,7 +3,7 @@ pipeline{
 	stages{
 		stage('1-codecheckout'){
 			steps{
-				git clone
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Abaree/multibranch-pipeline.git']]])
 			}
 		}
 		stage('2-codebuild'){
@@ -11,7 +11,7 @@ pipeline{
 				branch 'main'
 			}
 			steps{
-				sh 'git version'
+				echo 'git version'
 			}
 
 		}
@@ -20,7 +20,7 @@ pipeline{
 				branch 'develop'
 			}
 			steps{
-				sh 'mvn deploy'
+				echo 'mvn deploy'
 			}
 		}
 	}
